@@ -1,8 +1,8 @@
 import java.sql.*;
-
-public class MyJdbcCRUD {
+public class Jdbc1 {
+    
     static final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-    static final String dbURL = "jdbc:mysql://localhost/education";
+    static final String dbURL = "jdbc:mysql://localhost/record";
        
     public static void main(String[] args)throws Exception
     {
@@ -23,31 +23,39 @@ public class MyJdbcCRUD {
             String catalogName = con.getCatalog();
             System.out.println("Current catalog name is: "+ catalogName);
             
+            
             String sql;
-            //sql = "INSERT INTO Accounts VALUES(1001,'Joe', 5000.0)";
+            
+            sql = "SELECT * FROM data";
+            rs = stat.executeQuery(sql);
+            
+            //sql = "INSERT INTO data VALUES(1005,'Shivam', 'Kaliya')";
             //stat.executeUpdate(sql);
            
             
-            sql= "UPDATE Accounts SET NAME='Sanjay' WHERE ID = 1023";
+            sql= "UPDATE data SET First_Name='Divya' WHERE ID = 1001";
             stat.executeUpdate(sql);
             
-            sql= "DELETE FROM Accounts WHERE ID = 1044";
+            sql= "UPDATE data SET LAST_NAME='Manral' WHERE ID = 1003";
+            stat.executeUpdate(sql);
+            
+            sql= "DELETE FROM data WHERE ID = 1004";
            stat.executeUpdate(sql);
             
-            sql = "SELECT * FROM Accounts";
+            sql = "SELECT * FROM data";
             rs = stat.executeQuery(sql);
             
             int id;
-            String name;
-            float balance;
-            
+            String first_name;
+            String last_name;
+                        
             while(rs.next())
             {
                 id = rs.getInt("ID");
-                name= rs.getString("Name");
-                balance = rs.getFloat("Balance");
+                first_name= rs.getString("First_Name");
+                last_name = rs.getString("Last_Name");
                 
-                System.out.println(id+" "+name+" "+balance);
+                System.out.println(id+" | "+first_name+" | "+last_name);
             }
             rs.close();
             stat.close();
